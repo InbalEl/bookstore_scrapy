@@ -7,6 +7,9 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import mysql.connector
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 class BookscraperPipeline:
     def process_item(self, item, spider):
@@ -80,8 +83,8 @@ class SaveToMySQLPipeline:
     def __init__(self):
         self.conn = mysql.connector.connect(
             host = 'localhost',
-            user = 'scrapyuser',
-            password = 'scrapy1',
+            user = os.getenv(MYSQL_USER),
+            password = os.getenv(MYSQL_PASSWORD),
             database = 'books'
         )
 
